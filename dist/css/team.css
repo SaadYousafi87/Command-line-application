@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+}
+
+header {
+    margin-bottom: 5%;
+}
+
+h1 {
+    background-color: red;
+    color: white;
+    text-align: center;
+    margin: 0;
+    line-height: 60px;
+    font-size: 24px;
+}
+
+.top-layer, .bottom-layer {
+    display: flex;
+    justify-content: center;
+}
+
+.team-member {
+    margin-right: 5%;
+    margin-bottom: 2%;
+    border: .5px black solid;
+}
+
+.team-heading {
+    background-color: blueviolet;
+    padding: .1px 0 .1px 10px;
+    color: white;
+}
+
+.team-info {
+    background-color:beige;
+    margin-top: 3%;
+}
+
+p {
+    padding: 5px 5px;
+    margin: 0;
+}
