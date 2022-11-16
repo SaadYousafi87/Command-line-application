@@ -15,8 +15,9 @@ h1 {
     font-size: 24px;
 }
 
-.top-layer, .bottom-layer {
+.top-layer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
