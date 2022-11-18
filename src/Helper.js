@@ -1,95 +1,89 @@
+const fs = require("fs");
+const path = require("path");
 
-
+let team = ``;
 function addManager(manager){
-    var section = document.createElement("section");
-    var heading = document.createElement("div");
-    var h2 = document.createElement("h2");
-    var h3 = document.createElement("h3");
-    var detail = document.createElement("div");
-    var id = document.createElement("p");
-    var email = document.createElement("a");
-    var officeNum = document.createElement("p");
-
-    section.setAttribute("class", "team-member");
-    heading.setAttribute("class", "team-heading");
-    h2.setAttribute("class", "name");
-    h2.value = manager.getName();
-    h3.setAttribute("class", "role");
-    h3.value = manager.getRole();
-    detail.setAttribute("team-info");
-    id.value = manager.gerId();
-    email.setAttribute("href", "mailto:"+manager.getEmail());
-    email.value = manager.getEmail();
-    officeNum.value = "Office number: "+manager.getOfficeNumber();
-
-    heading.append(h2, h3);
-    detail.append(id, email, officeNum);
-    var sectionTop = document.getElementsByClassName("top-layer");
-    sectionTop.append(heading, detail);
-    main.appendChild(sectionTop);  
+   team += `
+   <section class="team-member">
+    <div class="team-heading">
+        <h2 class="name">${manager.getName()}</h2>
+        <h3 class="role">${manager.getRole()}</h3>
+    </div><div class="team-info">
+        <p>ID: ${manager.getId()}</p>
+        <p>Email:<a href="mailto:${manager.getEmail()}"> ${manager.getEmail()}</a></p>
+        <p>Office number: ${manager.getOfficeNumber()}</p>
+    </div>
+</section>
+`;
 }
 
 function addEngineer(engineer){
-    var section = document.createElement("section");
-    var heading = document.createElement("div");
-    var h2 = document.createElement("h2");
-    var h3 = document.createElement("h3");
-    var detail = document.createElement("div");
-    var id = document.createElement("p");
-    var email = document.createElement("a");
-    var github = document.createElement("a");
-
-    section .setAttribute("class", "team-member");
-    heading.setAttribute("class", "team-heading");
-    h2.setAttribute("class", "name");
-    h2.value = engineer.getName();
-    h3.setAttribute("class", "role");
-    h3.value = engineer.getRole();
-    detail.setAttribute("class", "team-info");
-    id.value = engineer.getId();
-    email.setAttribute("href", "mailto:"+engineer.getEmail());
-    email.value = engineer.getEmail();
-    github.setAttribute("href", "www."+engineer.getGithub()+".github.com");
-    github.value = "GitHub: "+engineer.getGithub();
-
-    heading.append(h2, h3);
-    detail.append(id, email, github);
-    var sectionTop = document.getElementsByClassName("top-layer");
-    sectionTop.append(heading, detail);
-    main.appendChild(sectionTop);
+    team += `
+    <section class="team-member">
+    <div class="team-heading">
+        <h2 class="name">${engineer.getName()}</h2>
+        <h3 class="role">${engineer.getRole()}</h3>
+    </div><div class="team-info">
+        <p>ID: ${engineer.getId()}</p>
+        <p>Email:<a href="mailto:${engineer.getEmail()}"> ${engineer.getEmail()}</a></p>
+        <p>GitHub:<a href="https://github.com"> ${engineer.getGithub()}</a></p>
+    </div>
+</section>
+`;
 }
 
 function addIntern(intern){
-    var section = document.createElement("section");
-    var heading = document.createElement("div");
-    var h2 = document.createElement("h2");
-    var h3 = document.createElement("h3");
-    var detail = document.createElement("div");
-    var id = document.createElement("p");
-    var email = document.createElement("a");
-    var school = document.createElement("p");
+    team += `
+    <section class="team-member">
+    <div class="team-heading">
+        <h2 class="name">${intern.getName()}</h2>
+        <h3 class="role">${intern.getRole()}</h3>
+    </div><div class="team-info">
+        <p>ID: ${intern.getId()}</p>
+        <p>Email:<a href="mailto:${intern.getEmail()}"> ${intern.getEmail()}</a></p>
+        <p>School: ${intern.getSchool()}</p>
+    </div>
+</section>
+`;
+}
 
-    section.setAttribute("class", "team-member");
-    heading.setAttribute("class", "team-heading");
-    h2.setAttribute("class", "name");
-    h2.value = intern.getName();
-    h3.setAttribute("class", "role");
-    h3.value = intern.getRole();
-    detail.setAttribute("class", "team-info");
-    id.value = intern.getId();
-    email.setAttribute("href", "mailto:"+intern.getEmail());
-    email.value = intern.getEmail();
-    school.value = intern.getSchool();
-
-    heading.append(h2, h3);
-    detail.append(id, email, school);
-    var sectionTop = document.getElementsByClassName("top-layer");
-    sectionTop.append(heading, detail);
-    main.appendChild(sectionTop);
+function generateHTML(){
+    return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/team.css">
+        <title>Team Information</title>
+    </head>
+    <body>
+    
+        <header>
+            <h1>My Team</h1>
+        </header>
+    
+        <main>
+             <section class="top-layer">
+                ${team}
+            </section> 
+        </main>
+    </body>
+    </html>`;
+}
+const DIST_DIR = path.resolve(__dirname, '../dist/html');
+const distPath = path.join(DIST_DIR, 'team.html');
+function writeData(){
+    const myData = generateHTML();
+    fs.writeFile(distPath, myData, (err) => {
+        err ? console.log(err) : console.log("Success");
+    });
 }
 
 module.exports = {
     addManager,
     addEngineer,
-    addIntern
+    addIntern,
+    writeData
 };

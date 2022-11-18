@@ -112,6 +112,7 @@ function menu(){
                 internQuestionnaire();
                 break;
             case "Exit":
+                helper.writeData();
                 return;
         }
     });
